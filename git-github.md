@@ -286,3 +286,36 @@ git commit -m "Add README"  # Commit staged changes
 <br>
 <br>
 
+
+## Git Shortcuts
+
+##### Here’s a neat list of common Git keywords/shortcuts and what they stand for:
+
+<h6> 
+
+ | Shortcut/Keyword | Meaning / Full Command       | Explanation                                      |
+|-----------------|-----------------------------|------------------------------------------------|
+| rv              | remove (`git rm`)            | Remove file(s) from working dir & stage deletion |
+| mv              | move/rename (`git mv`)       | Rename or move files and stage                   |
+| .               | all in current directory (`git add .`) | Add all new & modified files in current directory |
+| -A              | all (`git add -A`)           | Add all changes including deletions anywhere in repo |
+| init            | initialize (`git init`)      | Create a new empty Git repository                |
+| add             | add (`git add`)              | Add file(s) to staging area                       |
+| commit          | commit (`git commit`)        | Save staged changes with a message                |
+| status          | status (`git status`)        | Show current repo status                          |
+| checkout        | checkout (`git checkout`)    | Switch branches or restore files                  |
+| branch          | branch (`git branch`)        | Manage branches                                  |
+| merge           | merge (`git merge`)          | Merge branches                                   |
+| push            | push (`git push`)            | Upload commits to remote                          |
+| pull            | pull (`git pull`)            | Download and merge from remote                    |
+| clone           | clone (`git clone`)          | Copy a remote repo locally                        |
+| log             | log (`git log`)              | View commit history                              |
+| reset           | reset (`git reset`)          | Unstage files or reset commits                    |
+| stash           | stash (`git stash`)          | Temporarily save changes                          |
+| tag             | tag (`git tag`)              | Mark specific commits                            |
+| fetch           | fetch (`git fetch`)          | Download objects and refs from remote without merging |
+| rebase          | rebase (`git rebase`)        | Reapply commits on a new base                     |
+
+
+</h6>
+
