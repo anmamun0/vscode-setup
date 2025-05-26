@@ -8,8 +8,202 @@
 | GitHub Tech step by step  | [GitHub Tech step by step](#github-tech-step-by-step) |
 | Git & GitHub Basic Commands | [Git & GitHub Basic Commands](#git--github-basic-commands) |
 </h6>
+ 
+`Untracked`  —	New file, Git doesn’t know about it yet
+<br>
+`Unstaged` —	File is modified, but not added to staging area(only changed in your working directory)
+<br>
+`Staged` —	File is marked to be committed (you've already done git add)
+<br>
+`Committed` —	File is saved in repository history
+<br>
+`HEAD` —	The latest commit on the current branch
 
+
+
+
+### 🔄 Transition Summary 
+
+|     Action      |       From → To         |          Command             |
+|-----------------|--------------------------|------------------------------|
+| Modify a file   | Untracked → Modified *(Unstaged)*     |edit the file |
+| Stage a file    | Modified → Staged        | `git add file.txt`           |
+| Commit a file   | Staged → Committed       | `git commit -m "message"`    |
+
+ 
 <br> 
+
+
+## 1 📜 View Commit History
+
+```bash
+git log                        # Show commit hash, author, date, messages
+git log --oneline              # Show commit in shortened format
+git log -n 5                   # Show the last 5 commits
+
+git log origin/main..HEAD      # Show commits on your branch that haven’t been pushed yet
+git log --oneline --graph --all  # Visualize branch/merge history in a graph view
+
+git show                       # Show details of the latest commit
+git show HEAD                  # Show your latest commit details
+git show --stat                # Show summary of changed files in the commit
+
+gitk                           # GUI-style commit viewer (requires installation)
+```
+
+## 2 🔧 Reset Customization
+
+#### 🔹 1. 🔄 Restore Working Directory (Unstaged)
+###### 👉 This reverts the file(s) to the last committed version. Useful to undo changes **before staging**.
+```bash
+git restore filename.txt   # Restore a specific file
+git restore .              # Restore all files
+```
+
+#### 🔹 2. 🔄 Unstage Staged File
+###### You staged it (git add), but want to undo that: | This removes it from staging area, but Not changes in your file.
+```bash
+git restore --staged filename.txt
+```
+
+
+
+#### 🔹 3. 🔄 Discard All Changes (Staged + Working)
+###### Restore everything to the last commit: will undo state and will change undo file
+```bash 
+git restore --source=HEAD --staged --worktree .
+Or use:
+git reset --hard  #⚠️ This will discard all unstaged AND staged changes.
+```
+
+
+#### 🔹 4. 🕒 Undo Last Commit (Keep Changes)
+
+```bash
+git reset --soft HEAD~1   # Undo commit, not undo staged and files
+git reset --mixed HEAD~1  # Undo commit, Undo staged, but not change files
+git reset --hard HEAD~1   # Undo commit, Undo staged, undo all files (⚠️ irreversible)
+```
+
+#### 🔹 5. 🔙 Reset to a Specific Commit 
+
+```
+git reset --hard <commit_hash>
+```
+
+
+## 3. BRANCHING
+Command	Description 
+
+```bash
+git branch                   # List all local branches
+git branch new-feature       # Create a new branch
+git checkout new-feature     # Switch to an existing branch
+git checkout -b new-feature  # Create and switch to a new branch
+git merge branch-name        # Merge a branch into the current branch
+git branch -d branch-name    # Delete a branch (only if merged)
+git branch -D feature-x      # Force delete a branch without merging
+
+```
+
+## 4. 👀 Inspect & Compare
+
+Used to analyze differences between commits, branches, or files.
+
+```bash
+git diff                # See changes in working directory (unstaged)
+git diff --staged       # See changes that are staged for commit
+git diff main..dev      # Compare changes between two branches
+git diff --cached       # Compare staged changes vs last commit
+
+git blame file.txt      # Show who last modified each line of a file
+
+git log                 # View commit history
+git log --graph         # Visual commit history tree
+```
+
+## 5. 📂 .gitignore & Git Clean
+
+##### 🔧 Create `.gitignore` file:
+```bash
+touch .gitignore              # Create a .gitignore file to tell Git which files/folders to ignore
+git status --ignored          # View ignored files
+```
+
+
+
+### 🧹 git clean
+
+Used to remove **untracked files or directories** from your working directory.  
+⚠️ **Warning:** This can permanently delete files!
+
+```bash
+git clean -n    # Dry run – show what would be deleted
+git clean -f    # Force delete untracked files
+git clean -fd   # Force delete untracked files and directories
+```
+
+
+## 6. 🧳 Git Stash
+Temporarily save uncommitted changes and return to a clean state.
+```bash
+git stash                  # Save your current uncommitted changes
+git stash pop              # Apply the most recent stash and remove it from stash list
+git stash list             # View all saved stashes
+git stash apply stash@{1}  # Apply a specific stash (without removing it)
+git stash drop stash@{0}   # Delete a specific stash
+git stash clear            # Remove all stashes
+```
+
+## 7. 🌐 Remote Repositories
+Remote repos (like GitHub, GitLab) are online versions of your local repo.
+```bash
+git remote add origin https://github.com/your-name/your-repo.git  # Add remote origin
+git remote -v                 # View configured remotes
+git push origin main          # Push local changes to the main branch
+git pull origin main          # Pull latest changes from the main branch
+git clone https://github.com/user/repo.git  # Clone a remote repository
+```
+
+
+
+## 8. 🎯 Git Tags
+Tags are used to mark specific points (commits) in history — commonly used for versioning and releases.
+```bash
+git tag v1.0.0                          # Create a lightweight tag
+git tag -a v1.0.0 -m "Initial release" # Create an annotated tag with a message
+git tag                                # List all tags
+git push origin v1.0.0                 # Push a specific tag to the remote
+```
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
 
 # GitHub Tech step by step
 
@@ -101,17 +295,18 @@ git push           # Push code to GitHub
 
 
 ## 🌿 PART 8: BRANCHING
-Command	Description
- 
-```bash
-git branch              # List branches
-git branch new-feature  # Create new branch
-git checkout new-feature # Switch to branch
-git checkout -b new-feature # Create + switch to new branch
-git merge branch-name   # Merge branches
-git branch -d branch-name # Delete a branch
-```
+Command	Description 
 
+```bash
+git branch                   # List all local branches
+git branch new-feature       # Create a new branch
+git checkout new-feature     # Switch to an existing branch
+git checkout -b new-feature  # Create and switch to a new branch
+git merge branch-name        # Merge a branch into the current branch
+git branch -d branch-name    # Delete a branch (only if merged)
+git branch -D feature-x      # Force delete a branch without merging
+
+```
 
 ## 🤝 PART 9: COLLABORATION
 
